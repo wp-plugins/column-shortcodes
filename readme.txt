@@ -41,15 +41,16 @@ A preset stylesheet is included, which you can also overwrite to you liking in y
 = Where do I add my content? =
 
 When you have selected a shorcode it will be placed in you editor. You will see something like this:
-´
+
+`
 [one_half][/one_half]
-´
+`
 
 Make sure to place you content (text/images etc. ) between the two shortcodes, like so:
 
-´
+`
 [one_half]My content goes here...[/one_half]
-´
+`
 
 = Will you be adding more shortcodes? =
 
@@ -62,7 +63,8 @@ You will find a .po file in the languages folder which you can use. You can send
 = How can I replace the default Shortcode CSS stylesheet? =
 
 You can easily overwrite the existing stylesheet. For example you would like to add a margin between your columns, you just place the following in your theme's style.css:
-´
+
+`
 .one_half  {
 	width: 48%;	
 	margin-right: 2%;
@@ -99,7 +101,7 @@ You can easily overwrite the existing stylesheet. For example you would like to 
 	width: 16%;
 	margin-right: 0.6%;
 } 
-´
+`
 
 == Screenshots ==
 
