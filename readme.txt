@@ -13,6 +13,7 @@ Adds shortcodes to easily create columns in your posts or pages.
 Sometimes you just need to divide your page into different columns. With this plugin you just select a column shortcode and it will add the column to the page.
 
 There are 9 different column widths available from which you can make all combinations:
+
 * half (1/2)
 * one third (1/3)
 * two third (2/3)
