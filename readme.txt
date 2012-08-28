@@ -147,8 +147,8 @@ You will find a .po file in the languages folder which you can use. You can send
 
 == Screenshots ==
 
-1. Shortcode popup with shortcode selector
-2. Editor with shortcode icon
+1. Editor with shortcode icon
+2. Shortcode popup with shortcode selector
 3. Editor with shortcodes
 4. Example post with the use of column shortcodes
 
