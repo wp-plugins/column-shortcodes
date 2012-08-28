@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Column Shortcodes
-Version: 			0.1
+Version: 			0.2
 Description: 		Adds shortcodes to easily create columns in your posts or pages
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -63,10 +63,12 @@ class Codepress_Column_Shortcodes
 		add_action('admin_init', array( $this, 'add_editor_buttons' ) );
 		add_action( 'admin_footer', array( $this, 'popup' ) );
 		
-		// styling & scripts
-		add_action( 'admin_print_styles', array( $this, 'admin_styles') );
-		add_action( 'admin_print_scripts', array( $this, 'admin_scripts') );
+		// styling
+		add_action( 'admin_print_styles', array( $this, 'admin_styles') );		
 		add_action( 'wp_enqueue_scripts',  array( $this, 'frontend_styles') );
+		
+		// scripts, only load when editor is available
+		add_action( 'tiny_mce_plugins', array( $this, 'admin_scripts') );
 		
 		// translations
 		load_plugin_textdomain( CPSH_TEXTDOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -87,9 +89,11 @@ class Codepress_Column_Shortcodes
 	 *
 	 * @since     0.1
 	 */
-	public function admin_scripts() 
-	{
+	public function admin_scripts( $plugins ) 
+	{		
 		wp_enqueue_script( 'cpsh-admin', CPSH_URL.'/assets/js/admin.js', array('jquery'), CPSH_VERSION );
+		
+		return $plugins;
 	}	
 		
 	/**
@@ -154,8 +158,10 @@ class Codepress_Column_Shortcodes
 		if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
 			if ( in_array(basename($_SERVER['PHP_SELF']), array('post-new.php', 'page-new.php', 'post.php', 'page.php') ) ) {
 				
-				// add html buttons
-				add_action( 'admin_head', array( $this, 'add_html_buttons' ) );
+				// add html buttons, when using this filter
+				if( apply_filters('add_shortcode_html_buttons', false ) ) {
+					add_action( 'admin_head', array( $this, 'add_html_buttons' ) );
+				}
 				
 				// add shortcode button
 				add_action( 'media_buttons', array( $this, 'add_shortcode_button' ), 100 );
@@ -269,7 +275,7 @@ class Codepress_Column_Shortcodes
 	 * @since     0.1
 	 */
 	function add_html_buttons()
-	{
+	{		
 		wp_print_scripts( 'quicktags' );								
 		
 		$shortcodes = $this->get_shortcodes();
