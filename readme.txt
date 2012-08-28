@@ -44,11 +44,9 @@ A preset stylesheet is included, which you can also overwrite to you liking in y
 = How do I add a column shortcode? =
 
 **Standard**
-
 The easiest way is to use the added icon on the top of your editor ( right next to the media icon ). This will open a popup window from which you can select a column icon by clicking on one of the shortcodes.
 
 **Manual**
-
 You could also type in the shortcode yourself inside the editor. The following shortcodes are available:
 
 `
@@ -73,7 +71,6 @@ You could also type in the shortcode yourself inside the editor. The following s
 `
 
 **Another option**
-
 Another way to add shortcodes is to switch to HTML-view. On the top of editor you will now see all the shortcodes listed.
 By default these buttons are hidden. If you'd like to use them you can add this to your theme's functions.php:
 
