@@ -155,18 +155,18 @@ class Codepress_Column_Shortcodes
 	 */
 	function add_editor_buttons()
 	{
-		if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
-			if ( in_array(basename($_SERVER['PHP_SELF']), array('post-new.php', 'page-new.php', 'post.php', 'page.php') ) ) {
+		global $pagenow;
+		
+		if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) && in_array($pagenow, array('post-new.php', 'page-new.php', 'post.php', 'page.php', 'profile.php', 'user-edit.php', 'user-new.php') ) ) {
 				
-				// add html buttons, when using this filter
-				if( apply_filters('add_shortcode_html_buttons', false ) ) {
-					add_action( 'admin_head', array( $this, 'add_html_buttons' ) );
-				}
-				
-				// add shortcode button
-				add_action( 'media_buttons', array( $this, 'add_shortcode_button' ), 100 );
+			// add html buttons, when using this filter
+			if( apply_filters('add_shortcode_html_buttons', false ) ) {
+				add_action( 'admin_head', array( $this, 'add_html_buttons' ) );
 			}
-		}
+			
+			// add shortcode button
+			add_action( 'media_buttons', array( $this, 'add_shortcode_button' ), 100 );
+		}		
 	}
 	
 	/**
