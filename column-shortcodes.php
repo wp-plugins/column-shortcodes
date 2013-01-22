@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 		Column Shortcodes
-Version: 			0.2
+Version: 			0.3
 Description: 		Adds shortcodes to easily create columns in your posts or pages
 Author: 			Codepress
 Author URI: 		http://www.codepress.nl
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPSH_VERSION', 	'0.1' );
+define( 'CPSH_VERSION', 	'0.3' );
 define( 'CPSH_URL', 		plugins_url('', __FILE__) );
 define( 'CPSH_TEXTDOMAIN', 	'column-shortcodes' );
 
@@ -81,7 +81,11 @@ class Codepress_Column_Shortcodes
 	 */
 	public function admin_styles()
 	{
-		wp_enqueue_style( 'cpsh-admin', CPSH_URL.'/assets/css/admin.css', array(), CPSH_VERSION, 'all' );	
+		wp_enqueue_style( 'cpsh-admin', CPSH_URL.'/assets/css/admin.css', array(), CPSH_VERSION, 'all' );
+		
+		if ( is_rtl() ) {
+			wp_enqueue_style( 'cpsh-admin-rtl', CPSH_URL.'/assets/css/admin-rtl.css', array(), CPSH_VERSION, 'all' );	
+		}
 	}
 	
 	/**
@@ -103,7 +107,12 @@ class Codepress_Column_Shortcodes
 	 */
 	public function frontend_styles()
 	{	
-		wp_enqueue_style( 'cpsh-shortcodes', CPSH_URL.'/assets/css/shortcodes.css', array(), CPSH_VERSION, 'all' );
+		if ( ! is_rtl() ) {
+			wp_enqueue_style( 'cpsh-shortcodes', CPSH_URL.'/assets/css/shortcodes.css', array(), CPSH_VERSION, 'all' );
+		} else {
+			wp_enqueue_style( 'cpsh-shortcodes-rtl', CPSH_URL.'/assets/css/shortcodes-rtl.css', array(), CPSH_VERSION, 'all' );
+		}
+
 	}
 	
 	/**
@@ -242,6 +251,7 @@ class Codepress_Column_Shortcodes
 			'one_fifth' 	=> array ('display_name' => __('one fifth', CPSH_TEXTDOMAIN) ),
 			'two_fifth' 	=> array ('display_name' => __('two fifth', CPSH_TEXTDOMAIN) ),
 			'three_fifth' 	=> array ('display_name' => __('three fifth', CPSH_TEXTDOMAIN) ),
+			'four_fifth' 	=> array ('display_name' => __('four fifth', CPSH_TEXTDOMAIN) ),
 			'one_sixth' 	=> array ('display_name' => __('one sixth', CPSH_TEXTDOMAIN) )
 		);
 		
