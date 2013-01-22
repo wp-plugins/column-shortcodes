@@ -164,6 +164,7 @@ You will find a .po file in the languages folder which you can use. You can send
 = 0.3 =
 
 * added RTL support and Hebrew language ( thanks to Rami Yushuvaey )
+* added Slovak translation ( thanks to Branco from WebHostingGeeks )
 
 = 0.2 =
 
