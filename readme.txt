@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: columns, column, shortcodes, shortcode, divider, layout, posts, editor, wp-admin, admin, codepress, wordpress
 Requires at least: 3.1
 Tested up to: 3.5
-Stable tag: 0.4
+Stable tag: 0.6
 
 Adds shortcodes to easily create columns in your posts or pages.
 
@@ -12,10 +12,11 @@ Adds shortcodes to easily create columns in your posts or pages.
 
 Adds shortcodes to easily create columns in your posts or pages.
 
-Sometimes you just need to divide your page into different columns. With this plugin you just select a column shortcode and it will add the column to the page.
+Sometimes you just need to divide your page into different columns. With this plugin you just select a column shortcode and it will add the column to the page. You can also change the padding of each individual column from the UI.
 
-There are 9 different column widths available from which you can make all combinations:
+There are 10 different column widths available from which you can make all combinations:
 
+* full width (1/1)
 * half (1/2)
 * one third (1/3)
 * two third (2/3)
@@ -51,6 +52,7 @@ The easiest way is to use the added icon on the top of your editor ( right next 
 You could also type in the shortcode yourself inside the editor. The following shortcodes are available:
 
 `
+[full_width][/full_width]
 [one_half][/one_half]
 [one_half_last][/one_half_last]
 [one_third][/one_third]
@@ -95,50 +97,109 @@ Make sure to place your content (text/images etc. ) between the two shortcodes, 
 [one_half]My content goes here...[/one_half]
 `
 
+= My existing theme uses the same shortcodes, how can I solve this? =
+
+You can prefix the shortcode by placing the following in your functions.php. Problem solved =)
+
+`
+add_filter( 'cpsh_prefix', 'set_shortcode_prefix' );
+function set_shortcode_prefix() {
+	return 'myprefix_'; // edit this part if needed
+}
+`
+
+= How can I hide the Padding Settings? =
+
+In patch 0.6 we added padding settings (optional) to the plugin. If you would like to hide this settings menu you can place the following in your functions.php
+
+`
+add_filter( 'cpsh_hide_padding_settings', '__return_true' );
+`
+
 = How can I replace the default Shortcode CSS stylesheet? =
 
 You can easily overwrite the existing stylesheet. For example you would like to add a margin between your columns, you just place the following in your theme's style.css:
 
 `
-.one_half  {
-	width: 48%;
-	margin-right: 2%;
+.one_half {
+	width: 49% !important;
+	margin-right: 2% !important;
 }
-.one_third  {
-	width: 32%;
-	margin-right: 1.3%;
+.one_half.last_column {
+	width: 49% !important;
+	margin-right: 0px !important;
 }
-.two_third  {
-	width: 64%;
-	margin-right: 2.6%;
+.one_third {
+	width: 32% !important;
+	margin-right: 2% !important;
 }
-.one_fourth  {
-	width: 24%;
-	margin-right: 1%;
+.one_third.last_column {
+	width: 32% !important;
+	margin-right: 0px !important;
 }
-.three_fourth  {
-	width: 72%;
-	margin-right: 3%;
+.two_third {
+	width: 66% !important;
+	margin-right: 2% !important;
 }
-.one_fifth  {
-	width: 19%;
-	margin-right: 1%;
+.two_third.last_column {
+	width: 66% !important;
+	margin-right: 0px !important;
 }
-.two_fifth  {
-	width: 38%;
-	margin-right: 2%;
+.one_fourth {
+	width: 23.5% !important;
+	margin-right: 2% !important;
 }
-.three_fifth  {
-	width: 57%;
-	margin-right: 3%;
+.one_fourth.last_column {
+	width: 23.5% !important;
+	margin-right: 0px !important;
 }
-.four_fifth  {
-	width: 76%;
-	margin-right: 3%;
+.three_fourth {
+	width: 74.5% !important;
+	margin-right: 2% !important;
 }
-.one_sixth  {
-	width: 16%;
-	margin-right: 0.6%;
+.three_fourth.last_column {
+	width: 74.5% !important;
+	margin-right: 0px !important;
+}
+.one_fifth {
+	width: 18.4% !important;
+	margin-right: 2% !important;
+}
+.one_fifth.last_column {
+	width: 18.4% !important;
+	margin-right: 0px !important;
+}
+.two_fifth {
+	width: 39% !important;
+	margin-right: 2% !important;
+}
+.two_fifth.last_column {
+	width: 39% !important;
+	margin-right: 0px !important;
+}
+.three_fifth {
+	width: 59% !important;
+	margin-right: 2% !important;
+}
+.three_fifth.last_column {
+	width: 59% !important;
+	margin-right: 0px !important;
+}
+.four_fifth {
+	width: 79.6% !important;
+	margin-right: 2% !important;
+}
+.four_fifth.last_column {
+	width: 79.6% !important;
+	margin-right: 0px !important;
+}
+.one_sixth {
+	width: 15% !important;
+	margin-right: 2% !important;
+}
+.one_sixth.last_column {
+	width: 15% !important;
+	margin-right: 0px !important;
 }
 `
 
@@ -159,6 +220,15 @@ You will find a .po file in the languages folder which you can use. You can send
 4. Example post with the use of column shortcodes
 
 == Changelog ==
+
+= 0.6 =
+* added Danish translation ( thanks to Mads Rosendahl )
+* added full width column
+* updated css template for margins ( thanks to intheshallow )
+* added responsive CSS for devices with a max-width viewport of 600pixels
+
+= 0.5 =
+* added the option to add paddings to the columns from the shortcode UI.
 
 = 0.4 =
 
