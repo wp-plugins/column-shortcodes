@@ -331,7 +331,7 @@ class Codepress_Column_Shortcodes {
 			return $shortcodes;
 
 		// define column shortcodes
-		$column_shortcodes = array(
+		$column_shortcodes = apply_filters( 'cpsh_column_shortcodes', array(
 			'full_width' 	=> array ('display_name' => __('full width', CPSH_TEXTDOMAIN) ),
 			'one_half' 		=> array ('display_name' => __('one half', CPSH_TEXTDOMAIN) ),
 			'one_third' 	=> array ('display_name' => __('one third', CPSH_TEXTDOMAIN) ),
@@ -343,7 +343,10 @@ class Codepress_Column_Shortcodes {
 			'three_fifth' 	=> array ('display_name' => __('three fifth', CPSH_TEXTDOMAIN) ),
 			'four_fifth' 	=> array ('display_name' => __('four fifth', CPSH_TEXTDOMAIN) ),
 			'one_sixth' 	=> array ('display_name' => __('one sixth', CPSH_TEXTDOMAIN) )
-		);
+		));
+
+		if ( ! $column_shortcodes )
+			return array();
 
 		foreach ( $column_shortcodes as $short => $options ) {
 
