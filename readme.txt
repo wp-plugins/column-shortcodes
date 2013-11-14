@@ -3,8 +3,8 @@ Contributors: codepress, tschutter, davidmosterd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: columns, column, shortcodes, shortcode, divider, layout, posts, editor, wp-admin, admin, codepress, wordpress
 Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 0.6.1
+Tested up to: 3.7.1
+Stable tag: 0.6.3
 
 Adds shortcodes to easily create columns in your posts or pages.
 
@@ -32,7 +32,7 @@ A preset stylesheet is included, which you can also overwrite to you liking in y
 
 **Related Links:**
 
-* http://www.codepress.nl/
+* http://www.codepresshq.com/
 
 == Installation ==
 
@@ -123,7 +123,7 @@ If you would like to hide certain column from the menu; place the following in y
 `
 function hide_column_shortcodes( $shortcodes ) {
 
-	/* uncommented ( remove the '//' ) any of the following to renove its shortcode from menu */
+	/* uncomment ( remove the '//' ) any of the following to remove it's shortcode from menu */
 
 	// unset( $shortcodes['full_width'] );
 	// unset( $shortcodes['one_half'] );
@@ -246,6 +246,13 @@ You will find a .po file in the languages folder which you can use. You can send
 4. Example post with the use of column shortcodes
 
 == Changelog ==
+
+= 0.6.3 =
+* updated languages
+
+= 0.6.2 =
+* added Italian language ( thanks to Nicola )
+* added Czech language and bug fix ( thanks to Michal Ratajsky )
 
 = 0.6.1 =
 * fixed jquery.cookie.js issue where in some cases the server would reject it
