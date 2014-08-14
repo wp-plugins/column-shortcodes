@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: 	Column Shortcodes
-Version: 		0.6.4
+Version: 		0.6.5
 Description: 	Adds shortcodes to easily create columns in your posts or pages
 Author: 		Codepress
 Author URI: 	http://www.codepresshq.com/
@@ -27,7 +27,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'CPSH_VERSION', 	'0.6.4' );
+define( 'CPSH_VERSION', 	'0.6.5' );
 define( 'CPSH_URL', 		plugins_url( '', __FILE__ ) );
 define( 'CPSH_TEXTDOMAIN', 	'column-shortcodes' );
 
@@ -119,10 +119,12 @@ class Codepress_Column_Shortcodes {
 	 * @since 0.1
 	 */
 	public function frontend_styles() {
-		if ( ! is_rtl() ) {
-			wp_enqueue_style( 'cpsh-shortcodes', CPSH_URL.'/assets/css/shortcodes.css', array(), CPSH_VERSION, 'all' );
-		} else {
-			wp_enqueue_style( 'cpsh-shortcodes-rtl', CPSH_URL.'/assets/css/shortcodes-rtl.css', array(), CPSH_VERSION, 'all' );
+		if ( apply_filters( 'cpsh_load_styles', true ) ) {
+			if ( ! is_rtl() ) {
+				wp_enqueue_style( 'cpsh-shortcodes', CPSH_URL.'/assets/css/shortcodes.css', array(), CPSH_VERSION, 'all' );
+			} else {
+				wp_enqueue_style( 'cpsh-shortcodes-rtl', CPSH_URL.'/assets/css/shortcodes-rtl.css', array(), CPSH_VERSION, 'all' );
+			}
 		}
 	}
 
@@ -196,7 +198,7 @@ class Codepress_Column_Shortcodes {
 			$name = str_replace( $this->prefix, '', $name );
 		}
 
-		$output = "<div{$id} class='{$name}{$class}'>{$content}</div>";
+		$output = "<div{$id} class='content-column {$name}{$class}'>{$content}</div>";
 
 		if ( false !== $pos ) {
 			$output .= "<div class='clear_column'></div>";
@@ -213,8 +215,11 @@ class Codepress_Column_Shortcodes {
 	private function is_edit_screen() {
 		global $pagenow;
 
-		if ( in_array( $pagenow, array( 'post-new.php', 'page-new.php', 'post.php', 'page.php', 'profile.php', 'user-edit.php', 'user-new.php' ) ) )
+		$allowed_screens = apply_filters( 'cpsh_allowed_screens', array( 'post-new.php', 'page-new.php', 'post.php', 'page.php', 'profile.php', 'user-edit.php', 'user-new.php' ) );
+
+		if ( in_array( $pagenow, $allowed_screens ) ) {
 			return true;
+		}
 
 		return false;
 	}
@@ -351,17 +356,18 @@ class Codepress_Column_Shortcodes {
 
 		// define column shortcodes
 		$column_shortcodes = apply_filters( 'cpsh_column_shortcodes', array(
-			'full_width' 	=> array ('display_name' => __('full width', CPSH_TEXTDOMAIN) ),
-			'one_half' 		=> array ('display_name' => __('one half', CPSH_TEXTDOMAIN) ),
-			'one_third' 	=> array ('display_name' => __('one third', CPSH_TEXTDOMAIN) ),
-			'one_fourth' 	=> array ('display_name' => __('one fourth', CPSH_TEXTDOMAIN) ),
-			'two_third' 	=> array ('display_name' => __('two third', CPSH_TEXTDOMAIN) ),
-			'three_fourth' 	=> array ('display_name' => __('three fourth', CPSH_TEXTDOMAIN) ),
-			'one_fifth' 	=> array ('display_name' => __('one fifth', CPSH_TEXTDOMAIN) ),
-			'two_fifth' 	=> array ('display_name' => __('two fifth', CPSH_TEXTDOMAIN) ),
-			'three_fifth' 	=> array ('display_name' => __('three fifth', CPSH_TEXTDOMAIN) ),
-			'four_fifth' 	=> array ('display_name' => __('four fifth', CPSH_TEXTDOMAIN) ),
-			'one_sixth' 	=> array ('display_name' => __('one sixth', CPSH_TEXTDOMAIN) )
+			'full_width' 	=> array( 'display_name' => __('full width', CPSH_TEXTDOMAIN ) ),
+			'one_half' 		=> array( 'display_name' => __('one half', CPSH_TEXTDOMAIN ) ),
+			'one_third' 	=> array( 'display_name' => __('one third', CPSH_TEXTDOMAIN ) ),
+			'one_fourth' 	=> array( 'display_name' => __('one fourth', CPSH_TEXTDOMAIN ) ),
+			'two_third' 	=> array( 'display_name' => __('two third', CPSH_TEXTDOMAIN ) ),
+			'three_fourth' 	=> array( 'display_name' => __('three fourth', CPSH_TEXTDOMAIN ) ),
+			'one_fifth' 	=> array( 'display_name' => __('one fifth', CPSH_TEXTDOMAIN ) ),
+			'two_fifth' 	=> array( 'display_name' => __('two fifth', CPSH_TEXTDOMAIN ) ),
+			'three_fifth' 	=> array( 'display_name' => __('three fifth', CPSH_TEXTDOMAIN ) ),
+			'four_fifth' 	=> array( 'display_name' => __('four fifth', CPSH_TEXTDOMAIN ) ),
+			'one_sixth' 	=> array( 'display_name' => __('one sixth', CPSH_TEXTDOMAIN ) ),
+			'five_sixth' 	=> array( 'display_name' => __('five sixth', CPSH_TEXTDOMAIN ) )
 		));
 
 		if ( ! $column_shortcodes )
